@@ -1,0 +1,32 @@
+apply plugin: 'war'
+apply plugin: 'osgi'
+apply plugin: 'eclipse'
+
+sourceCompatibility = '1.6'
+version = '1.0'
+
+repositories {
+	maven {
+        url "http://repo.dotcms.com/artifactory/libs-release"
+    }
+}
+
+dependencies {
+	compile (group: 'com.dotcms', name: 'dotcms', version: '2.5.3'){
+		transitive = true
+	}
+	providedCompile "javax.servlet:servlet-api:2.5"
+}
+
+jar {
+    manifest {
+        name = 'Aquent Sessiontest'
+		symbolicName = 'com.aquent.sessiontest'
+        instruction 'Bundle-Vendor', 'Aquent, LLC (cfalzone@aquent.com)'
+        instruction 'Bundle-Description', 'Aquent Session Test'
+        instruction 'Bundle-DocURL', 'http://www.aquent.com'
+        instruction 'Bundle-Activator', 'com.aquent.SessionTestActivator'
+        instruction 'Import-Package', '!org.springframework.*', '*;version=0'
+    }
+}
+
